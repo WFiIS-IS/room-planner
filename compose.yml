@@ -1,0 +1,35 @@
+name: room-planner
+
+x-pg-db-credentials: &pg-db-credentials
+  POSTGRES_USER: ${DB_USER:-postgres}
+  POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+  POSTGRES_DB: ${DB_NAME:-room-planner}
+
+services:
+  db:
+    image: postgres:17
+    ports:
+      - '127.0.0.1:5432:5432'
+    environment:
+      <<: *pg-db-credentials
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -d $${DB_NAME:-room-planner} -U $${DB_USER:-postgres}']
+      interval: 3s
+      timeout: 5s
+      retries: 5
+  s3:
+    image: localstack/localstack:s3-latest
+    container_name: '${LOCALSTACK_DOCKER_NAME:-localstack-main}'
+    ports:
+      - '127.0.0.1:4566:4566' # LocalStack Gateway
+    environment:
+      - DEBUG=${DEBUG:-0}
+    volumes:
+      - localstack:/var/lib/localstack
+      - '/var/run/docker.sock:/var/run/docker.sock'
+
+volumes:
+  pg-data:
+  localstack:

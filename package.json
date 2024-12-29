@@ -17,7 +17,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "preinstall": "npx only-allow yarn"
+    "preinstall": "npx only-allow yarn",
+    "create-bucket": "bash scripts/create-bucket.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
