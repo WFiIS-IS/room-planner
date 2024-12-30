@@ -5825,10 +5825,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"camelcase-keys@npm:^9.1.3":
+  version: 9.1.3
+  resolution: "camelcase-keys@npm:9.1.3"
+  dependencies:
+    camelcase: "npm:^8.0.0"
+    map-obj: "npm:5.0.0"
+    quick-lru: "npm:^6.1.1"
+    type-fest: "npm:^4.3.2"
+  checksum: 10c0/ed8cb24f4b69f9be67b4a104250d9e025c5968a9a15e7e162b1ba3ecac5117abb106efd9484c93c497d0b0f6f0e5bc7bd4cedbb4e6f64ee115b3a49340886d60
+  languageName: node
+  linkType: hard
+
 "camelcase@npm:^6.2.0":
   version: 6.3.0
   resolution: "camelcase@npm:6.3.0"
   checksum: 10c0/0d701658219bd3116d12da3eab31acddb3f9440790c0792e0d398f0a520a6a4058018e546862b6fba89d7ae990efaeb97da71e1913e9ebf5a8b5621a3d55c710
+  languageName: node
+  linkType: hard
+
+"camelcase@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "camelcase@npm:8.0.0"
+  checksum: 10c0/56c5fe072f0523c9908cdaac21d4a3b3fb0f608fb2e9ba90a60e792b95dd3bb3d1f3523873ab17d86d146e94171305f73ef619e2f538bd759675bc4a14b4bff3
   languageName: node
   linkType: hard
 
@@ -8547,6 +8566,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"map-obj@npm:5.0.0":
+  version: 5.0.0
+  resolution: "map-obj@npm:5.0.0"
+  checksum: 10c0/8ae0d8a3ce085e3e9eb46d7a4eba03681ffc644920046f7ba8edff37f11d30b0de4dd10e83f492ea6d3ba3b9c51de66d7ca6580c24b7e15d61b845d2f9f688ca
+  languageName: node
+  linkType: hard
+
 "math-intrinsics@npm:^1.0.0, math-intrinsics@npm:^1.1.0":
   version: 1.1.0
   resolution: "math-intrinsics@npm:1.1.0"
@@ -9809,6 +9835,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"quick-lru@npm:^6.1.1":
+  version: 6.1.2
+  resolution: "quick-lru@npm:6.1.2"
+  checksum: 10c0/f499f07bd276eec460c4d7d2ee286c519f3bd189cbbb5ddf3eb929e2182e4997f66b951ea8d24b3f3cee8ed5ac9f0006bf40636f082acd1b38c050a4cbf07ed3
+  languageName: node
+  linkType: hard
+
+"radashi@npm:^12.3.0":
+  version: 12.3.0
+  resolution: "radashi@npm:12.3.0"
+  checksum: 10c0/b53cb84b5d32e8f5a3e490b2ace1251f3341a8f3f78f99c8f20db84bc0b286e9cabc9cbb978b51e05dfbc4ce0ef6bd35cc317902868e69e555bbc5238353d735
+  languageName: node
+  linkType: hard
+
 "react-day-picker@npm:8.10.1":
   version: 8.10.1
   resolution: "react-day-picker@npm:8.10.1"
@@ -10263,6 +10303,7 @@ __metadata:
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
     axios: "npm:^1.7.9"
+    camelcase-keys: "npm:^9.1.3"
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
     cmdk: "npm:1.0.0"
@@ -10285,6 +10326,7 @@ __metadata:
     prettier: "npm:^3.4.2"
     prettier-plugin-jsdoc: "npm:^1.3.0"
     prettier-plugin-tailwindcss: "npm:^0.6.9"
+    radashi: "npm:^12.3.0"
     react: "npm:^19.0.0"
     react-day-picker: "npm:8.10.1"
     react-dom: "npm:^19.0.0"
@@ -11105,6 +11147,13 @@ __metadata:
   dependencies:
     prelude-ls: "npm:^1.2.1"
   checksum: 10c0/7b3fd0ed43891e2080bf0c5c504b418fbb3e5c7b9708d3d015037ba2e6323a28152ec163bcb65212741fa5d2022e3075ac3c76440dbd344c9035f818e8ecee58
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^4.3.2":
+  version: 4.31.0
+  resolution: "type-fest@npm:4.31.0"
+  checksum: 10c0/a5bb69e3b0f82e068af8c645ac3d50b1fa5c588ebc83735a6add4ef6dacf277bb3605801f66c72c069af20120ee7387a3ae6dd84e12c152f5982784c710b4051
   languageName: node
   linkType: hard
 
