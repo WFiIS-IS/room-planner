@@ -1,2 +1,3 @@
 import './logging';
-import './bucketSetup';
+
+await Promise.all([import('./bucketSetup'), import('./db-init')]);

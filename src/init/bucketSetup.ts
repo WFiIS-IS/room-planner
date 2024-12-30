@@ -2,7 +2,7 @@ import { env } from '@/env/server';
 import { mainLogger } from '@/lib/logger';
 import { s3 } from '@/lib/s3';
 
-const logger = mainLogger.child({ name: 'bucketSetup' });
+const logger = mainLogger.child({ name: 'bucketSetup.ts' });
 
 logger.info('Preparing S3 bucket');
 
