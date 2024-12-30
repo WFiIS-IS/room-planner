@@ -2,8 +2,12 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { GlobalsProvider } from '@/modules/globals/GlobalsProvider';
+
 import './globals.css';
 
+import { AppSidebar } from '@/app/_sidebar/AppSidebar';
 import { cn } from '@/lib/utils';
 
 const geistSans = Geist({
@@ -29,7 +33,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(geistSans.variable, geistMono.variable, 'dark antialiased')}>
-        {children}
+        <GlobalsProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            {children}
+          </SidebarProvider>
+        </GlobalsProvider>
       </body>
     </html>
   );

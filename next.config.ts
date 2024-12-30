@@ -5,6 +5,16 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   serverExternalPackages: ['pino', 'pino-pretty'],
   output: 'standalone',
+  experimental: {
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
+  },
 };
 
 export default nextConfig;
