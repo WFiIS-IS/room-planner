@@ -1,3 +1,3 @@
 import './logging';
 
-await Promise.all([import('./bucketSetup'), import('./db-init')]);
+await Promise.all([import('./bucketSetup'), import('./db-init'), import('./ha-check')]);
