@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Thermometer } from 'lucide-react';
 
 import { MenuContentWrapper } from '@/app/_sidebar/devices-view/MenuContentWrapper';
-import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { SidebarMenuAction, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { Text } from '@/components/ui/text';
 import type { ThermometerSensor } from '@/lib/home-assistant/device-types';
 
@@ -25,6 +25,12 @@ export function Thermometers({ sensors }: ThermometersProps) {
               <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
             </Link>
           </SidebarMenuButton>
+          <SidebarMenuAction asChild>
+            <span>
+              {item.state}
+              {item.attributes.unitOfMeasurement}
+            </span>
+          </SidebarMenuAction>
         </SidebarMenuItem>
       ))}
     </MenuContentWrapper>
