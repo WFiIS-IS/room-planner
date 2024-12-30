@@ -28,7 +28,6 @@ services:
       - DEBUG=${DEBUG:-0}
     volumes:
       - localstack:/var/lib/localstack
-      - '/var/run/docker.sock:/var/run/docker.sock'
 
 volumes:
   pg-data:

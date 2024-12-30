@@ -18,8 +18,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "preinstall": "npx only-allow yarn",
-    "create-bucket": "bash scripts/create-bucket.sh"
+    "preinstall": "npx only-allow yarn"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.717.0",

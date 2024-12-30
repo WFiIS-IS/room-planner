@@ -14,6 +14,8 @@ export const env = createEnv({
     S3_ENDPOINT: z.string().default('http://127.0.0.1:4566'),
     S3_ACCESS_KEY_ID: z.string().default('dev'),
     S3_SECRET_ACCESS_KEY: z.string().default('dev'),
+    S3_BUCKET_NAME: z.string().default('app-data'),
+    HOST_URL: z.string().default('http://localhost:3000'),
   },
   experimental__runtimeEnv: process.env,
   emptyStringAsUndefined: true,

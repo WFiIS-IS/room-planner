@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { mainLogger } from '@/lib/mainLogger';
+import { mainLogger } from '@/lib/logger';
 
 const logger = mainLogger.child({ name: "'/': <Home />" });
 
