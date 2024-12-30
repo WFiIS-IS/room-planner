@@ -3,8 +3,8 @@ import 'server-only';
 import axios, { type AxiosInstance } from 'axios';
 
 import { env } from '@/env/server';
-import { HAState } from '@/lib/home-assistant/_internal/state';
 import type { StateObject } from '@/lib/home-assistant/api-types';
+import { HAState } from '@/lib/home-assistant/state';
 import { mainLogger } from '@/lib/logger';
 import { r } from '@/lib/utils';
 

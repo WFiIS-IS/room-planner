@@ -1,3 +1,5 @@
+import 'server-only';
+
 import camelcaseKeys from 'camelcase-keys';
 import { memo } from 'radashi';
 import { z } from 'zod';
@@ -10,7 +12,11 @@ import {
   timestampSensorSchema,
 } from '@/lib/home-assistant/device-types';
 
-import { stateIsLightObject, stateIsThermometerSensor, stateIsTimestampSensor } from './filters';
+import {
+  stateIsLightObject,
+  stateIsThermometerSensor,
+  stateIsTimestampSensor,
+} from './_internal/filters';
 
 export class HAState {
   private readonly __unprocessedData: Array<StateObject>;

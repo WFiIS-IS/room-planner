@@ -40,3 +40,4 @@ export const thermometerSensorSchema = z.object({
     unitOfMeasurement: z.string(),
   }),
 });
+export type ThermometerSensor = z.infer<typeof thermometerSensorSchema>;
