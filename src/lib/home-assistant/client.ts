@@ -40,6 +40,39 @@ export class HaClient {
     return true;
   }
 
+  async getStateByEntityId(entityId: string) {
+    logger.info(`HaClient.getStateByEntityId(entityId: "${entityId}") requesting state`, {
+      entityId,
+    });
+    const [response, error] = await r(
+      this.__httpClient.get<StateObject>(`/api/states/${entityId}`),
+    );
+    if (error) {
+      logger.info(`HaClient.getStateByEntityId(entityId: "${entityId}") - error : ${error}`, {
+        entityId,
+        error,
+      });
+      return null;
+    }
+    return response.data;
+  }
+
+  async updateStateObject(entityId: string, statePartial: Partial<StateObject>) {
+    logger.info(`HaClient.updateStateObject(entityId: "${entityId}")`, { entityId });
+    logger.info(`\t└ ${JSON.stringify(statePartial)}`);
+    const [response, error] = await r(
+      this.__httpClient.post(`/api/states/${entityId}`, statePartial),
+    );
+    if (error) {
+      logger.info(`HaClient.updateStateObject(entityId: "${entityId}") - error ${error}`, {
+        entityId,
+        error,
+      });
+      return null;
+    }
+    return response.data;
+  }
+
   readonly getStates = memoize(
     async () => {
       logger.info(`HaClient.getStates() requesting states`);
@@ -57,7 +90,7 @@ export class HaClient {
       logId: 'haClient.getStates()',
       revalidateTags: ['states'],
       persist: true,
-      duration: 2 * 60, // 2 minutes
+      duration: 2, // 2 seconds
     },
   );
 }

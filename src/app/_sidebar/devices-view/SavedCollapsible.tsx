@@ -1,7 +1,8 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { useIsClient } from '@uidotdev/usehooks';
+import { useLocalStorage } from 'usehooks-ts';
 
 import { Collapsible } from '@/components/ui/collapsible';
 
@@ -11,12 +12,13 @@ export type SavedCollapsibleProps = {
 };
 
 export function SavedCollapsible({ children, storageKey }: SavedCollapsibleProps) {
+  const isClient = useIsClient();
   const [state, setState] = useLocalStorage(storageKey, false);
 
   return (
     <Collapsible
       className="group/collapsible [&[data-state=open]>button>svg:last-child]:rotate-90"
-      open={state}
+      open={isClient ? state : false}
       onOpenChange={(newState) => setState(newState)}
     >
       {children}

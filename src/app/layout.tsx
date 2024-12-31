@@ -10,6 +10,7 @@ import { GlobalsProvider } from '@/modules/globals/GlobalsProvider';
 import './globals.css';
 
 import { AppSidebar } from '@/app/_sidebar/AppSidebar';
+import { Refresher } from '@/app/Refresher';
 import { cn } from '@/lib/utils';
 
 import { AppHeader } from './AppHeader';
@@ -37,6 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Refresher />
       <body className={cn(geistSans.variable, geistMono.variable, 'dark font-sans antialiased')}>
         <GlobalsProvider>
           <SidebarProvider>

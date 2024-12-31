@@ -6,9 +6,10 @@ import type {
   ThermometerSensorStateObject,
   TimestampSensorStateObject,
 } from '@/lib/home-assistant/api-types';
+import { isLightEntityId } from '@/lib/home-assistant/device-types';
 
 const _checkStateIsLightObject = z.object({
-  entity_id: z.string().startsWith('light.'),
+  entity_id: isLightEntityId,
 });
 
 export function stateIsLightObject(obj: StateObject): obj is LightStateObject {

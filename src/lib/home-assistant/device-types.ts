@@ -6,10 +6,17 @@ export enum DeviceType {
   SENSOR_THERMOMETER = 'sensor.thermometer',
 }
 
+export enum LightState {
+  ON = 'on',
+  OFF = 'off',
+}
+
+export const isLightEntityId = z.string().startsWith('light.');
+
 export const lightDeviceSchema = z.object({
-  entityId: z.string().startsWith('light.'),
+  entityId: isLightEntityId,
   type: z.literal(DeviceType.LIGHT),
-  state: z.union([z.literal('on'), z.literal('off')]),
+  state: z.union([z.literal(LightState.ON), z.literal(LightState.OFF)]),
   lastChanged: z.coerce.date(),
   attributes: z.object({
     friendlyName: z.string().optional(),
