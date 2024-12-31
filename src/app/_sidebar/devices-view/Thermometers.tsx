@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import { Thermometer } from 'lucide-react';
 
 import { MenuContentWrapper } from '@/app/_sidebar/devices-view/MenuContentWrapper';
-import { SidebarMenuAction, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { SidebarButtonLink } from '@/app/_sidebar/SidebarButtonLink';
+import { SidebarMenuAction, SidebarMenuItem } from '@/components/ui/sidebar';
 import { Text } from '@/components/ui/text';
 import type { ThermometerSensor } from '@/lib/home-assistant/device-types';
 
@@ -20,11 +20,9 @@ export function Thermometers({ sensors }: ThermometersProps) {
     >
       {sensors.map((item) => (
         <SidebarMenuItem key={item.entityId}>
-          <SidebarMenuButton asChild>
-            <Link href={`/devices/thermometers/${item.entityId}`}>
-              <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
-            </Link>
-          </SidebarMenuButton>
+          <SidebarButtonLink href={`/devices/thermometers/${item.entityId}`}>
+            <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
+          </SidebarButtonLink>
           <SidebarMenuAction asChild>
             <span>
               {item.state}

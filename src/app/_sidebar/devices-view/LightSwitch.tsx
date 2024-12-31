@@ -15,7 +15,7 @@ export function LightSwitch({ entityId, currentState }: LightSwitchProps) {
 
   return (
     <form action={changeLightStateAction}>
-      <SidebarMenuAction type="submit">
+      <SidebarMenuAction type="submit" className="absolute top-1 p-2">
         {currentState === LightState.ON ? <Lightbulb /> : <LightbulbOff />}
       </SidebarMenuAction>
     </form>

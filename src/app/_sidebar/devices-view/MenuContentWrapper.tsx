@@ -1,15 +1,10 @@
 import { Children, type ReactNode } from 'react';
-import Link from 'next/link';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
 import { SavedCollapsible } from '@/app/_sidebar/devices-view/SavedCollapsible';
+import { SidebarButtonLink } from '@/app/_sidebar/SidebarButtonLink';
 import { CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import {
-  SidebarMenuAction,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSub,
-} from '@/components/ui/sidebar';
+import { SidebarMenuAction, SidebarMenuItem, SidebarMenuSub } from '@/components/ui/sidebar';
 import { Text } from '@/components/ui/text';
 
 export type MenuContentWrapperProps = {
@@ -30,12 +25,10 @@ export function MenuContentWrapper({
   return (
     <SavedCollapsible storageKey={storageKey}>
       <SidebarMenuItem>
-        <SidebarMenuButton asChild>
-          <Link href={link} className="m-1 flex items-center justify-start gap-2 p-2">
-            <props.icon />
-            <Text className="text-lg">{title}</Text>
-          </Link>
-        </SidebarMenuButton>
+        <SidebarButtonLink href={link}>
+          <props.icon />
+          <Text className="text-lg">{title}</Text>
+        </SidebarButtonLink>
         {Children.count(children) ? (
           <>
             <CollapsibleTrigger asChild>

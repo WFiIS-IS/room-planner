@@ -14,7 +14,7 @@ import { checkState, filterLights } from '@/lib/home-assistant/state';
 import LightOff from '../light-off.svg';
 import LightOn from '../light-on.svg';
 
-export type LightsPageProps = {
+export type LightPageProps = {
   params: Promise<{ entityId: string }>;
 };
 
@@ -23,7 +23,7 @@ const svgProps = {
   width: '200',
 } satisfies ComponentProps<typeof LightOn>;
 
-export default async function LightsPage({ params }: LightsPageProps) {
+export default async function LightPage({ params }: LightPageProps) {
   const entityId = (await params).entityId;
   const lightData = checkState(await haApiClient.getStateByEntityId(entityId), filterLights);
 

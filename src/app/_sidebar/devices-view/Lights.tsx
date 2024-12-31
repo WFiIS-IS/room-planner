@@ -1,9 +1,9 @@
-import Link from 'next/link';
 import { SunMoon } from 'lucide-react';
 
 import { LightSwitch } from '@/app/_sidebar/devices-view/LightSwitch';
 import { MenuContentWrapper } from '@/app/_sidebar/devices-view/MenuContentWrapper';
-import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { SidebarButtonLink } from '@/app/_sidebar/SidebarButtonLink';
+import { SidebarMenuItem } from '@/components/ui/sidebar';
 import { Text } from '@/components/ui/text';
 import type { LightDevice } from '@/lib/home-assistant/device-types';
 
@@ -21,11 +21,9 @@ export function Lights({ lights }: LightsProps) {
     >
       {lights.map((item) => (
         <SidebarMenuItem key={item.entityId}>
-          <SidebarMenuButton asChild>
-            <Link href={`/devices/lights/${item.entityId}`}>
-              <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
-            </Link>
-          </SidebarMenuButton>
+          <SidebarButtonLink href={`/devices/lights/${item.entityId}`}>
+            <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
+          </SidebarButtonLink>
           <LightSwitch currentState={item.state} entityId={item.entityId} />
         </SidebarMenuItem>
       ))}

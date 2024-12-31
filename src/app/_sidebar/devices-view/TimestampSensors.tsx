@@ -1,8 +1,8 @@
-import Link from 'next/link';
 import { Clock } from 'lucide-react';
 
 import { MenuContentWrapper } from '@/app/_sidebar/devices-view/MenuContentWrapper';
-import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { SidebarButtonLink } from '@/app/_sidebar/SidebarButtonLink';
+import { SidebarMenuItem } from '@/components/ui/sidebar';
 import { Text } from '@/components/ui/text';
 import type { TimestampSensor } from '@/lib/home-assistant/device-types';
 
@@ -20,11 +20,9 @@ export function TimestampSensors({ sensors }: TimestampSensorsProps) {
     >
       {sensors.map((item) => (
         <SidebarMenuItem key={item.entityId}>
-          <SidebarMenuButton asChild tooltip={item.state.toLocaleString()}>
-            <Link href={`/devices/timestamp-sensors/${item.entityId}`}>
-              <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
-            </Link>
-          </SidebarMenuButton>
+          <SidebarButtonLink href={`/devices/timestamp-sensors/${item.entityId}`}>
+            <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
+          </SidebarButtonLink>
         </SidebarMenuItem>
       ))}
     </MenuContentWrapper>

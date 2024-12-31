@@ -11,7 +11,7 @@ export function Refresher() {
   useEffect(() => {
     clearIntervalRef.current = setInterval(() => {
       void router.refresh();
-    }, ms('3s'));
+    }, ms('5s'));
 
     return () => {
       if (clearIntervalRef.current) {
