@@ -3,8 +3,8 @@ import 'server-only';
 import axios, { type AxiosInstance } from 'axios';
 
 import { env } from '@/env/server';
+import { memoize } from '@/lib/cache';
 import type { StateObject } from '@/lib/home-assistant/api-types';
-import { HAState } from '@/lib/home-assistant/state';
 import { mainLogger } from '@/lib/logger';
 import { r } from '@/lib/utils';
 
@@ -40,16 +40,26 @@ export class HaClient {
     return true;
   }
 
-  async getStates() {
-    const [response, error] = await r(this.__httpClient.get<StateObject[]>('/api/states'));
-    if (error) {
-      logger.error(`HaClient.getStates() - error: ${error}`, { error });
-      throw error;
-    }
-    const data = response.data;
-    logger.debug(`HaClient.getStates() - data.length: ${data.length}`);
-    return new HAState(data);
-  }
+  readonly getStates = memoize(
+    async () => {
+      logger.info(`HaClient.getStates() requesting states`);
+      const [response, error] = await r(this.__httpClient.get<StateObject[]>('/api/states'));
+      if (error) {
+        logger.error(`HaClient.getStates() - error: ${error}`, { error });
+        throw error;
+      }
+      const data = response.data;
+      logger.debug(`HaClient.getStates() - data.length: ${data.length}`);
+      return data;
+    },
+    {
+      log: ['datacache', 'dedupe'],
+      logId: 'haClient.getStates()',
+      revalidateTags: ['states'],
+      persist: true,
+      duration: 2 * 60, // 2 minutes
+    },
+  );
 }
 
 export const haApiClient = new HaClient({ url: env.HA_URL, token: env.HA_TOKEN });

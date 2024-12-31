@@ -10,17 +10,22 @@ import {
   SidebarMenu,
 } from '@/components/ui/sidebar';
 import { haApiClient } from '@/lib/home-assistant/client';
+import {
+  filterLights,
+  filterThermometers,
+  filterTimestampSensors,
+} from '@/lib/home-assistant/state';
 
 export async function DevicesGroup() {
-  const state = await haApiClient.getStates();
+  const states = await haApiClient.getStates();
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Devices</SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu>
-          <Lights lights={state.getLights()} />
-          <TimestampSensors sensors={state.getTimestampSensors()} />
-          <Thermometers sensors={state.getThermometers()} />
+          <Lights lights={filterLights(states)} />
+          <TimestampSensors sensors={filterTimestampSensors(states)} />
+          <Thermometers sensors={filterThermometers(states)} />
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

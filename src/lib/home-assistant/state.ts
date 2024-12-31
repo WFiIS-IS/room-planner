@@ -1,7 +1,6 @@
 import 'server-only';
 
 import camelcaseKeys from 'camelcase-keys';
-import { memo } from 'radashi';
 import { z } from 'zod';
 
 import type { StateObject } from '@/lib/home-assistant/api-types';
@@ -18,32 +17,24 @@ import {
   stateIsTimestampSensor,
 } from './_internal/filters';
 
-export class HAState {
-  private readonly __unprocessedData: Array<StateObject>;
+export function filterLights(states: StateObject[]) {
+  const lightObjects = states.filter(stateIsLightObject);
+  const camelCased = lightObjects.map((obj) => camelcaseKeys(obj, { deep: true }));
+  const final = camelCased.map((obj) => ({ ...obj, type: DeviceType.LIGHT }));
+  return z.array(lightDeviceSchema).parse(final);
+}
 
-  constructor(data: Array<StateObject>) {
-    this.__unprocessedData = data;
-  }
+export function filterTimestampSensors(states: StateObject[]) {
+  const timestampSensors = states.filter(stateIsTimestampSensor);
+  const camelCased = timestampSensors.map((obj) => camelcaseKeys(obj, { deep: true }));
+  const final = camelCased.map((obj) => ({ ...obj, type: DeviceType.SENSOR_TIMESTAMP }));
+  return z.array(timestampSensorSchema).parse(final);
+}
 
-  readonly getLights = memo(() => {
-    const lightObjects = this.__unprocessedData.filter(stateIsLightObject);
-    const camelCased = lightObjects.map((obj) => camelcaseKeys(obj, { deep: true }));
-    const final = camelCased.map((obj) => ({ ...obj, type: DeviceType.LIGHT }));
-    return z.array(lightDeviceSchema).parse(final);
-  });
+export function filterThermometers(states: StateObject[]) {
+  const thermometerSensors = states.filter(stateIsThermometerSensor);
+  const camelCased = thermometerSensors.map((obj) => camelcaseKeys(obj, { deep: true }));
+  const final = camelCased.map((obj) => ({ ...obj, type: DeviceType.SENSOR_THERMOMETER }));
 
-  readonly getTimestampSensors = memo(() => {
-    const timestampSensors = this.__unprocessedData.filter(stateIsTimestampSensor);
-    const camelCased = timestampSensors.map((obj) => camelcaseKeys(obj, { deep: true }));
-    const final = camelCased.map((obj) => ({ ...obj, type: DeviceType.SENSOR_TIMESTAMP }));
-    return z.array(timestampSensorSchema).parse(final);
-  });
-
-  readonly getThermometers = memo(() => {
-    const thermometerSensors = this.__unprocessedData.filter(stateIsThermometerSensor);
-    const camelCased = thermometerSensors.map((obj) => camelcaseKeys(obj, { deep: true }));
-    const final = camelCased.map((obj) => ({ ...obj, type: DeviceType.SENSOR_THERMOMETER }));
-
-    return z.array(thermometerSensorSchema).parse(final);
-  });
+  return z.array(thermometerSensorSchema).parse(final);
 }
