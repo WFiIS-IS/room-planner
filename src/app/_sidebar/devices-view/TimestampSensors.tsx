@@ -21,7 +21,7 @@ export function TimestampSensors({ sensors }: TimestampSensorsProps) {
       {sensors.map((item) => (
         <SidebarMenuItem key={item.entityId}>
           <SidebarMenuButton asChild tooltip={item.state.toLocaleString()}>
-            <Link href={`/devices/lights/${item.entityId}`}>
+            <Link href={`/devices/timestamp-sensors/${item.entityId}`}>
               <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
             </Link>
           </SidebarMenuButton>

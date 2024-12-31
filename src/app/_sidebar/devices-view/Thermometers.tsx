@@ -21,7 +21,7 @@ export function Thermometers({ sensors }: ThermometersProps) {
       {sensors.map((item) => (
         <SidebarMenuItem key={item.entityId}>
           <SidebarMenuButton asChild>
-            <Link href={`/devices/lights/${item.entityId}`}>
+            <Link href={`/devices/thermometers/${item.entityId}`}>
               <Text>{item.attributes?.friendlyName ?? item.entityId}</Text>
             </Link>
           </SidebarMenuButton>

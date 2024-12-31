@@ -17,6 +17,19 @@ import {
   stateIsTimestampSensor,
 } from './_internal/filters';
 
+export function checkState<T>(state: StateObject | null, filterFn: (states: StateObject[]) => T[]) {
+  try {
+    const result = filterFn(state ? [state] : []);
+    if (result.length) {
+      return result[0];
+    } else {
+      return null;
+    }
+  } catch {
+    return null;
+  }
+}
+
 export function filterLights(states: StateObject[]) {
   const lightObjects = states.filter(stateIsLightObject);
   const camelCased = lightObjects.map((obj) => camelcaseKeys(obj, { deep: true }));
