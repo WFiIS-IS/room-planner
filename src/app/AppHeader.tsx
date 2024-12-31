@@ -14,7 +14,28 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 
-import { getBreadcrumbItems } from './_sidebar/sidebar-config';
+function capitalizeWord(word: string) {
+  if (!word) return ''; // Handle empty or undefined strings
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
+function getBreadcrumbItems(pathname: string) {
+  const subPaths = pathname.split('/').slice(1);
+  return subPaths.map((item) => {
+    const nameParts = item.split('.').map((part) => {
+      return part
+        .split('_')
+        .map((word) => capitalizeWord(word))
+        .join(' ');
+    });
+    const name = nameParts.length > 1 ? nameParts.slice(1).join('') : nameParts.join('');
+
+    const position = pathname.indexOf(item);
+    const url = pathname.slice(0, position + item.length);
+
+    return { fragment: name, url };
+  });
+}
 
 export function AppHeader() {
   const pathname = usePathname();

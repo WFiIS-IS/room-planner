@@ -14,7 +14,7 @@ export function Thermometers({ sensors }: ThermometersProps) {
   return (
     <MenuContentWrapper
       title="Thermometers"
-      link="/devices/Thermometers"
+      link="/devices/thermometers"
       icon={Thermometer}
       storageKey="thermometers-collapsible-open"
     >
