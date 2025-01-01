@@ -1,8 +1,6 @@
 import { format } from 'date-fns';
 import pino, { type Logger, type LoggerOptions } from 'pino';
 
-import { isBrowser, isDev } from '@/env/common';
-
 const COLOR = {
   GREEN: `\x1b[32m`,
   RED: `\x1b[31m`,
@@ -58,17 +56,13 @@ const commonOptions = {
   },
 } as const satisfies Partial<LoggerOptions>;
 
-export const mainLogger: Logger = !isDev
-  ? // JSON in production
-    pino({ ...commonOptions, level: 'warn' })
-  : // Pretty print in development
-    pino({
-      ...commonOptions,
-      transport: {
-        target: 'pino-pretty',
-        options: {
-          colorize: true,
-        },
-      },
-      level: 'debug',
-    });
+export const mainLogger: Logger = pino({
+  ...commonOptions,
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+    },
+  },
+  level: 'debug',
+});

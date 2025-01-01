@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/*<Refresher />*/}
+      <Refresher />
       <body className={cn(geistSans.variable, geistMono.variable, 'dark font-sans antialiased')}>
         <GlobalsProvider>
           <SidebarProvider>

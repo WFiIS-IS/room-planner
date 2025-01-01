@@ -29,7 +29,7 @@ export type CreateSceneFormProps = {
 
 const initialValues = {
   name: '',
-  image: [],
+  image: undefined,
 };
 
 const initialState = {
