@@ -2,6 +2,7 @@
 .idea
 !.env.sample
 media
+*.db
 
 # dependencies
 /node_modules
