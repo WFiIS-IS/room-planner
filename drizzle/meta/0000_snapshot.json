@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "758949b0-126a-4554-9784-fd3a47f5e81e",
+  "id": "22cdea2e-bf1d-4048-b208-844c465e408c",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "file_metadata": {
@@ -52,8 +52,8 @@
     "image_metadata": {
       "name": "image_metadata",
       "columns": {
-        "file_metadata": {
-          "name": "file_metadata",
+        "file_metadata_uid": {
+          "name": "file_metadata_uid",
           "type": "text",
           "primaryKey": true,
           "notNull": true,
@@ -76,11 +76,52 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "image_metadata_file_metadata_file_metadata_uid_fk": {
-          "name": "image_metadata_file_metadata_file_metadata_uid_fk",
+        "image_metadata_file_metadata_uid_file_metadata_uid_fk": {
+          "name": "image_metadata_file_metadata_uid_file_metadata_uid_fk",
           "tableFrom": "image_metadata",
           "tableTo": "file_metadata",
-          "columnsFrom": ["file_metadata"],
+          "columnsFrom": ["file_metadata_uid"],
+          "columnsTo": ["uid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "scene": {
+      "name": "scene",
+      "columns": {
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "file_metadata_uid": {
+          "name": "file_metadata_uid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "scene_file_metadata_uid_file_metadata_uid_fk": {
+          "name": "scene_file_metadata_uid_file_metadata_uid_fk",
+          "tableFrom": "scene",
+          "tableTo": "file_metadata",
+          "columnsFrom": ["file_metadata_uid"],
           "columnsTo": ["uid"],
           "onDelete": "no action",
           "onUpdate": "no action"

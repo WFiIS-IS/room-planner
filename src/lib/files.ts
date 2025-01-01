@@ -101,7 +101,7 @@ export async function saveImage({ data, metadata }: SaveImageArgs) {
     const fileName = `${insertedMetadata.uid}.${metadata.ext}`;
     await _saveMedia(fileName, data);
     const imageMetadata = (
-      await insertImageMetadata([{ fileMetadata: insertedMetadata.uid, ...metadata }], tx)
+      await insertImageMetadata([{ fileMetadataUid: insertedMetadata.uid, ...metadata }], tx)
     ).at(0);
     if (!imageMetadata) {
       throw new Error('Failed to insert image metadata!');

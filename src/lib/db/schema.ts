@@ -15,12 +15,12 @@ export const fileMetadata = sqliteTable('file_metadata', {
 export const fileMetadataRelations = relations(fileMetadata, ({ one }) => ({
   imageMetadata: one(imageMetadata, {
     fields: [fileMetadata.uid],
-    references: [imageMetadata.fileMetadata],
+    references: [imageMetadata.fileMetadataUid],
   }),
 }));
 
 export const imageMetadata = sqliteTable('image_metadata', {
-  fileMetadata: text('file_metadata')
+  fileMetadataUid: text('file_metadata_uid')
     .primaryKey()
     .references(() => fileMetadata.uid),
   width: int().notNull(),
@@ -29,7 +29,22 @@ export const imageMetadata = sqliteTable('image_metadata', {
 
 export const imageMetadataRelations = relations(imageMetadata, ({ one }) => ({
   fileMetadata: one(fileMetadata, {
-    fields: [imageMetadata.fileMetadata],
+    fields: [imageMetadata.fileMetadataUid],
+    references: [fileMetadata.uid],
+  }),
+}));
+
+export const scene = sqliteTable('scene', {
+  slug: text().primaryKey(),
+  title: text().notNull(),
+  fileMetadataUid: text('file_metadata_uid')
+    .notNull()
+    .references(() => fileMetadata.uid),
+});
+
+export const sceneRelations = relations(scene, ({ one }) => ({
+  fileMetadata: one(fileMetadata, {
+    fields: [scene.fileMetadataUid],
     references: [fileMetadata.uid],
   }),
 }));

@@ -1,7 +1,12 @@
 'use server';
 
+import { redirect } from 'next/navigation';
+import slugify from 'slugify';
+
+import { checkSceneExists, insertScene } from '@/data/file';
 import { getImageDimensions, getMetadata, saveImage } from '@/lib/files';
 import { mainLogger } from '@/lib/logger';
+import { r } from '@/lib/utils';
 import { ALLOWED_IMAGE_TYPES, formSchema } from '@/validation/create-scene';
 
 export async function onSubmitCreateScene(
@@ -61,4 +66,40 @@ export async function onSubmitCreateScene(
     data: bytes,
   });
   logger.info(`Image saved: ${JSON.stringify(saveResult)}`, { saveResult });
+
+  const slug = slugify(name, { lower: true });
+  const sceneExists = await checkSceneExists(slug);
+
+  if (sceneExists) {
+    logger.error(`Scene with slug "${slug}" already exists`);
+    return {
+      errors: {
+        name: ['Scene with this name already exists'],
+      },
+    };
+  }
+
+  const [result, error] = await r(
+    insertScene([{ slug, title: name, fileMetadataUid: saveResult.metadata.uid }]),
+  );
+
+  if (error) {
+    logger.error(`Failed to insert scene ${(error as Error).message}`, { error });
+    return {
+      message: 'Failed to insert scene',
+    };
+  }
+
+  const rows = result;
+
+  logger.info(`Scene inserted: ${JSON.stringify(rows)}`, { rows });
+  const insertedScene = rows.at(0);
+  if (!insertedScene) {
+    logger.error(`Failed to insert scene`);
+    return {
+      message: 'Failed to insert scene',
+    };
+  }
+
+  return redirect(`/scenes/${insertedScene.slug}`);
 }

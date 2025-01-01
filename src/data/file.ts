@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { omit } from 'radashi';
 
-import { fileMetadata, imageMetadata } from '@/lib/db/schema';
+import { fileMetadata, imageMetadata, scene } from '@/lib/db/schema';
 
 import { getTransactionContext, takeUnique, type DbTransaction } from './core';
 
@@ -24,8 +24,8 @@ export async function getImageMetadataByUid(uid: string, _tx?: DbTransaction) {
   const data = await tx
     .select()
     .from(imageMetadata)
-    .where(eq(imageMetadata.fileMetadata, uid))
-    .innerJoin(fileMetadata, eq(fileMetadata.uid, imageMetadata.fileMetadata))
+    .where(eq(imageMetadata.fileMetadataUid, uid))
+    .innerJoin(fileMetadata, eq(fileMetadata.uid, imageMetadata.fileMetadataUid))
     .then(takeUnique);
 
   if (!data) {
@@ -33,7 +33,18 @@ export async function getImageMetadataByUid(uid: string, _tx?: DbTransaction) {
   }
 
   return {
-    ...omit(data.image_metadata, ['fileMetadata']),
+    ...omit(data.image_metadata, ['fileMetadataUid']),
     ...data.file_metadata,
   };
+}
+
+export async function checkSceneExists(slug: string, _tx?: DbTransaction) {
+  const tx = getTransactionContext(_tx);
+  return tx.select().from(scene).where(eq(scene.slug, slug)).then(takeUnique);
+}
+
+type SceneInsert = typeof scene.$inferInsert;
+export async function insertScene(data: SceneInsert[], _tx?: DbTransaction) {
+  const tx = getTransactionContext(_tx);
+  return tx.insert(scene).values(data).returning();
 }
