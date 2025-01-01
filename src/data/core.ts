@@ -8,3 +8,8 @@ export function getTransactionContext(tx?: DbTransaction) {
   }
   return db;
 }
+
+export const takeUnique = <T extends unknown[]>(values: T): T[number] | null => {
+  if (values.length > 2) throw new Error('Found multiple matching values');
+  return values[0] ?? null;
+};

@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 import { fileTypeFromBuffer } from 'file-type';
+import fse from 'fs-extra';
 import imageSize from 'image-size';
 
 import { insertFileMetadata, insertImageMetadata } from '@/data/file';
@@ -70,7 +71,20 @@ async function _saveMedia(fileName: string, bytes: Uint8Array) {
 
 async function _readMedia(fileName: string) {
   const filePath = path.join(MEDIA_ROOT, fileName);
+  if (!(await fse.pathExists(filePath))) {
+    return null;
+  }
   return fs.readFile(filePath);
+}
+
+type GetImageArgs = {
+  uid: string;
+  ext: string;
+};
+
+export async function getImage({ uid, ext }: GetImageArgs) {
+  const fileName = `${uid}.${ext}`;
+  return await _readMedia(fileName);
 }
 
 type SaveImageArgs = {

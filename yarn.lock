@@ -6789,6 +6789,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"http-status-codes@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "http-status-codes@npm:2.3.0"
+  checksum: 10c0/c2412188929e8eed6623eef468c62d0c3c082919c03e9b74fd79cfd060d11783dba44603e38a3cee52d26563fe32005913eaf6120aa8ba907da1238f3eaad5fe
+  languageName: node
+  linkType: hard
+
 "https-proxy-agent@npm:^7.0.1":
   version: 7.0.6
   resolution: "https-proxy-agent@npm:7.0.6"
@@ -8909,6 +8916,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"radashi@npm:^12.3.0":
+  version: 12.3.0
+  resolution: "radashi@npm:12.3.0"
+  checksum: 10c0/b53cb84b5d32e8f5a3e490b2ace1251f3341a8f3f78f99c8f20db84bc0b286e9cabc9cbb978b51e05dfbc4ce0ef6bd35cc317902868e69e555bbc5238353d735
+  languageName: node
+  linkType: hard
+
 "react-day-picker@npm:8.10.1":
   version: 8.10.1
   resolution: "react-day-picker@npm:8.10.1"
@@ -9381,6 +9395,7 @@ __metadata:
     eslint-config-next: "npm:15.1.3"
     file-type: "npm:^19.6.0"
     fs-extra: "npm:^11.2.0"
+    http-status-codes: "npm:^2.3.0"
     image-size: "npm:^1.2.0"
     input-otp: "npm:^1.4.1"
     lint-staged: "npm:^15.3.0"
@@ -9395,6 +9410,7 @@ __metadata:
     prettier: "npm:^3.4.2"
     prettier-plugin-jsdoc: "npm:^1.3.0"
     prettier-plugin-tailwindcss: "npm:^0.6.9"
+    radashi: "npm:^12.3.0"
     react: "npm:^19.0.0"
     react-day-picker: "npm:8.10.1"
     react-dom: "npm:^19.0.0"
