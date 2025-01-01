@@ -22,6 +22,7 @@ export const env = createEnv({
     HOST_URL: z.string().default('http://localhost:3000'),
     HA_TOKEN: z.string().default(''),
     HA_URL: z.string().default('https://ha.critteros.dev'),
+    DATA_DIR: z.string().default(process.cwd()),
   },
   experimental__runtimeEnv: process.env,
   emptyStringAsUndefined: true,

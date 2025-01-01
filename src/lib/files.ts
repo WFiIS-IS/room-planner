@@ -1,5 +1,14 @@
+import 'server-only';
+
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
 import { fileTypeFromBuffer } from 'file-type';
 import imageSize from 'image-size';
+
+import { env } from '@/env/server';
+
+export const MEDIA_ROOT = path.join(env.DATA_DIR, 'media');
 
 export type FileMetadata = {
   contentType: string;
@@ -12,6 +21,12 @@ export type ImageDimensions = {
   width: number;
   height: number;
 };
+
+export async function ensureMediaRoot() {
+  await fs.mkdir(MEDIA_ROOT, {
+    recursive: true,
+  });
+}
 
 export async function getMetadata(file: File) {
   const fileSize = file.size;
