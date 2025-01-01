@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "e6e1bf32-3e47-47be-b0d3-3a4f3a65af8f",
+  "id": "758949b0-126a-4554-9784-fd3a47f5e81e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "file_metadata": {
@@ -63,14 +63,14 @@
           "name": "width",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "height": {
           "name": "height",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         }
       },

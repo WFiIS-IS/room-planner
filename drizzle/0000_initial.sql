@@ -8,7 +8,7 @@ CREATE TABLE `file_metadata` (
 --> statement-breakpoint
 CREATE TABLE `image_metadata` (
 	`file_metadata` text PRIMARY KEY NOT NULL,
-	`width` integer,
-	`height` integer,
+	`width` integer NOT NULL,
+	`height` integer NOT NULL,
 	FOREIGN KEY (`file_metadata`) REFERENCES `file_metadata`(`uid`) ON UPDATE no action ON DELETE no action
 );

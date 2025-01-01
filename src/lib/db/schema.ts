@@ -1,8 +1,11 @@
 import { relations } from 'drizzle-orm';
 import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { v4 as uuidv4 } from 'uuid';
 
 export const fileMetadata = sqliteTable('file_metadata', {
-  uid: text().primaryKey(),
+  uid: text()
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
   contentType: text('content_type').notNull(),
   fileSize: int('file_size').notNull(),
   ext: text().notNull(),
@@ -20,8 +23,8 @@ export const imageMetadata = sqliteTable('image_metadata', {
   fileMetadata: text('file_metadata')
     .primaryKey()
     .references(() => fileMetadata.uid),
-  width: int(),
-  height: int(),
+  width: int().notNull(),
+  height: int().notNull(),
 });
 
 export const imageMetadataRelations = relations(imageMetadata, ({ one }) => ({

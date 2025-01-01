@@ -1,6 +1,6 @@
 'use server';
 
-import { getImageDimensions, getMetadata } from '@/lib/files';
+import { getImageDimensions, getMetadata, saveImage } from '@/lib/files';
 import { mainLogger } from '@/lib/logger';
 import { ALLOWED_IMAGE_TYPES, formSchema } from '@/validation/create-scene';
 
@@ -55,4 +55,10 @@ export async function onSubmitCreateScene(
 
   logger.info(`Image metadata: ${JSON.stringify(metadata)}`, metadata);
   logger.info(`Image dimensions: ${JSON.stringify(imageDimensions)}`, imageDimensions);
+
+  const saveResult = await saveImage({
+    metadata: { ...metadata, ...imageDimensions },
+    data: bytes,
+  });
+  logger.info(`Image saved: ${JSON.stringify(saveResult)}`, { saveResult });
 }
