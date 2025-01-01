@@ -18,7 +18,9 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "preinstall": "npx only-allow yarn"
+    "preinstall": "npx only-allow yarn",
+    "make-migrations": "drizzle-kit generate",
+    "browse-db": "drizzle-kit studio --port=3001"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -60,9 +62,11 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "drizzle-orm": "^0.38.3",
     "embla-carousel-react": "^8.5.1",
     "file-type": "^19.6.0",
+    "fs-extra": "^11.2.0",
     "image-size": "^1.2.0",
     "input-otp": "^1.4.1",
     "lucide-react": "^0.469.0",
@@ -91,6 +95,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "@svgr/webpack": "^8.1.0",
     "@types/bytes": "^3",
+    "@types/fs-extra": "^11",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

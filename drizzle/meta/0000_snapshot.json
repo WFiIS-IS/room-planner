@@ -1,0 +1,104 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "e6e1bf32-3e47-47be-b0d3-3a4f3a65af8f",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "file_metadata": {
+      "name": "file_metadata",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content_type": {
+          "name": "content_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "file_size": {
+          "name": "file_size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ext": {
+          "name": "ext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "original_filename": {
+          "name": "original_filename",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "image_metadata": {
+      "name": "image_metadata",
+      "columns": {
+        "file_metadata": {
+          "name": "file_metadata",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "width": {
+          "name": "width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "image_metadata_file_metadata_file_metadata_uid_fk": {
+          "name": "image_metadata_file_metadata_file_metadata_uid_fk",
+          "tableFrom": "image_metadata",
+          "tableTo": "file_metadata",
+          "columnsFrom": ["file_metadata"],
+          "columnsTo": ["uid"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
