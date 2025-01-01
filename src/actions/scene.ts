@@ -1,9 +1,11 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import slugify from 'slugify';
 
-import { checkSceneExists, insertScene } from '@/data/file';
+import { checkSceneExists } from '@/data/file';
+import { deleteScene, insertScene } from '@/data/scenes';
 import { getImageDimensions, getMetadata, saveImage } from '@/lib/files';
 import { mainLogger } from '@/lib/logger';
 import { r } from '@/lib/utils';
@@ -102,4 +104,13 @@ export async function onSubmitCreateScene(
   }
 
   return redirect(`/scenes/${insertedScene.slug}`);
+}
+
+export async function deleteSceneAction(slug: string) {
+  const logger = mainLogger.child({ name: 'action -> deleteScene' });
+  logger.debug(`deleting scene with slug: ${slug}`);
+  await deleteScene(slug);
+  logger.info(`Scene deleted: ${slug}`);
+  revalidatePath('/scenes');
+  redirect('/scenes');
 }

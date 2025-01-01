@@ -42,9 +42,3 @@ export async function checkSceneExists(slug: string, _tx?: DbTransaction) {
   const tx = getTransactionContext(_tx);
   return tx.select().from(scene).where(eq(scene.slug, slug)).then(takeUnique);
 }
-
-type SceneInsert = typeof scene.$inferInsert;
-export async function insertScene(data: SceneInsert[], _tx?: DbTransaction) {
-  const tx = getTransactionContext(_tx);
-  return tx.insert(scene).values(data).returning();
-}

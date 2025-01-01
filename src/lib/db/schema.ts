@@ -47,4 +47,8 @@ export const sceneRelations = relations(scene, ({ one }) => ({
     fields: [scene.fileMetadataUid],
     references: [fileMetadata.uid],
   }),
+  imageMetadata: one(imageMetadata, {
+    fields: [scene.fileMetadataUid],
+    references: [imageMetadata.fileMetadataUid],
+  }),
 }));

@@ -12,9 +12,9 @@ export type LinkCardProps = {
 
 export function LinkCard({ children, href, className }: LinkCardProps) {
   return (
-    <Card className="overflow-hidden rounded-md shadow-md shadow-accent transition-all duration-300 ease-in-out hover:bg-accent hover:text-accent-foreground hover:shadow-xl">
+    <Card className="overflow-hidden rounded-md shadow-md shadow-accent transition-all duration-300 ease-in-out [&:not(:has(button:hover))]:hover:bg-accent [&:not(:has(button:hover))]:hover:text-accent-foreground [&:not(:has(button:hover))]:hover:shadow-xl">
       <Link href={href}>
-        <CardContent className={cn('flex flex-col items-center gap-4 p-6', className)}>
+        <CardContent className={cn('relative flex flex-col items-center gap-4 p-6', className)}>
           {children}
         </CardContent>
       </Link>
