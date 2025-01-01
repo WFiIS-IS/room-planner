@@ -25,6 +25,7 @@ function getBreadcrumbItems(pathname: string) {
     const nameParts = item.split('.').map((part) => {
       return part
         .split('_')
+        .flatMap((item) => item.split('-'))
         .map((word) => capitalizeWord(word))
         .join(' ');
     });
