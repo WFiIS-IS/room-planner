@@ -18,6 +18,8 @@ const svgProps = {
   className: '!w-full !h-full p-2',
 } satisfies ComponentProps<typeof LightOn>;
 
+export const dynamic = 'force-dynamic';
+
 export default async function LightsPage() {
   const states = await haApiClient.getStates();
   const lights = filterLights(states);

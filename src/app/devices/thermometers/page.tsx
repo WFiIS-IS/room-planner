@@ -8,6 +8,8 @@ import { Text } from '@/components/ui/text';
 import { haApiClient } from '@/lib/home-assistant/client';
 import { filterThermometers } from '@/lib/home-assistant/state';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DevicePage() {
   const states = await haApiClient.getStates();
   const lights = filterThermometers(states);

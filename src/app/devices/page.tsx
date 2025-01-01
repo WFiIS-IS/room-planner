@@ -6,6 +6,8 @@ import { LinkCard } from '@/components/LinkCard';
 import { PageWrapper } from '@/components/PageWrapper';
 import { Text } from '@/components/ui/text';
 
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   return (
     <PageWrapper>

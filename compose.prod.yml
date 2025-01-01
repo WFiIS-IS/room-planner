@@ -1,0 +1,22 @@
+name: room-planner
+
+services:
+  room-planner:
+    image: room-planner:v0.1.0
+    pull_policy: build
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    environment:
+      - HOST_URL=${HOST_URL:?HOST_URL is required}
+      - HA_TOKEN=${HA_TOKEN:?HA_TOKEN is required}
+      - HA_URL=${HA_URL:?HA_URL is required}
+      - DATA_DIR=${DATA_DIR:-/var/lib/room-planner/data}
+    volumes:
+      - app_data:${DATA_DIR:-/var/lib/room-planner/data}
+    ports:
+      - '${PORT:-3000}:3000'
+
+volumes:
+  app_data:

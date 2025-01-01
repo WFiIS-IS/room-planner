@@ -11,6 +11,8 @@ import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { getAllScenes } from '@/data/scenes';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ScenesPage() {
   const resultSet = await getAllScenes();
   const data = resultSet.map(({ fileMetadata: { uid, ext }, slug, title }) => ({
