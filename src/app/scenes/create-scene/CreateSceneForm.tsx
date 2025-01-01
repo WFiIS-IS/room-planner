@@ -1,11 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { useActionState, useEffect, useState, type ChangeEvent } from 'react';
 import Image from 'next/image';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 
+import { onSubmitCreateScene } from '@/actions/scene';
 import {
   Form,
   FormControl,
@@ -15,7 +16,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { mainLogger } from '@/lib/logger';
 import { ALLOWED_IMAGE_TYPES, formSchema } from '@/validation/create-scene';
+
+const logger = mainLogger.child({ name: '<CreateSceneForm />' });
 
 type FormSchemaType = z.infer<typeof formSchema>;
 
@@ -23,17 +27,35 @@ export type CreateSceneFormProps = {
   id?: string;
 };
 
+const initialValues = {
+  name: '',
+  image: [],
+};
+
+const initialState = {
+  errors: {
+    name: undefined,
+    image: undefined,
+  },
+  message: undefined,
+};
+
 export function CreateSceneForm({ id }: CreateSceneFormProps) {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
   const [filePreview, setFilePreview] = useState<string | undefined>(undefined);
+  const form = useForm<FormSchemaType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: initialValues,
+  });
+  const [state, formAction] = useActionState(onSubmitCreateScene, initialState);
 
   useEffect(() => {
     let previewUrl: string | undefined;
 
     if (selectedFile) {
       previewUrl = URL.createObjectURL(selectedFile);
-      setFilePreview(previewUrl);
     }
+    setFilePreview(previewUrl);
 
     return () => {
       if (previewUrl) {
@@ -42,13 +64,16 @@ export function CreateSceneForm({ id }: CreateSceneFormProps) {
     };
   }, [selectedFile]);
 
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      image: [],
-    },
-  });
+  useEffect(() => {
+    if (state?.errors) {
+      logger.info(`Assigning form errors: ${JSON.stringify(state.errors)}`);
+      Object.entries(state.errors)
+        .filter(([, errors]) => Boolean(errors))
+        .forEach(([formField, errors]) => {
+          form.setError(formField as keyof FormSchemaType, { message: errors.join('. ') });
+        });
+    }
+  }, [form, state?.errors]);
 
   const imageRef = form.register('image', {
     onChange: (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,13 +82,17 @@ export function CreateSceneForm({ id }: CreateSceneFormProps) {
     },
   });
 
-  const onSubmit = useCallback((values: FormSchemaType) => {
-    console.log(values);
-  }, []);
-
   return (
     <Form {...form}>
-      <form id={id} onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        id={id}
+        action={(...args) => {
+          setSelectedFile(undefined);
+          console.log(args[0].get('image'));
+          return formAction(...args);
+        }}
+        className="space-y-8"
+      >
         <FormField
           control={form.control}
           name="name"
