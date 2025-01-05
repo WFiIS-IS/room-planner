@@ -27,6 +27,7 @@ export default async function ScenesPage() {
       <Button asChild>
         <Link href="/scenes/create-scene">Create Scene</Link>
       </Button>
+
       <div className="grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))] gap-6">
         {data.map(({ imageSrc, sceneLink, title, slug }) => (
           <LinkCard href={sceneLink} key={sceneLink}>

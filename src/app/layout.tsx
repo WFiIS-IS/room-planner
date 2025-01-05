@@ -10,6 +10,9 @@ import { GlobalsProvider } from '@/modules/globals/GlobalsProvider';
 import './globals.css';
 
 import { AppSidebar } from '@/app/_sidebar/AppSidebar';
+// DnDContextProvider is a custom provider that wraps the DndContext from the @dnd-kit/core package
+// import { DndContext } from '@dnd-kit/core';
+import { DndContext } from '@/app/DnDContextProvider';
 import { Refresher } from '@/app/Refresher';
 import { cn } from '@/lib/utils';
 
@@ -42,17 +45,19 @@ export default function RootLayout({
     <html lang="en">
       <Refresher />
       <body className={cn(geistSans.variable, geistMono.variable, 'dark font-sans antialiased')}>
-        <GlobalsProvider>
-          <SidebarProvider>
-            <AppSidebar />
-            <div className="flex w-full flex-col">
-              <SidebarInset>
-                <AppHeader />
-                {children}
-              </SidebarInset>
-            </div>
-          </SidebarProvider>
-        </GlobalsProvider>
+        <DndContext>
+          <GlobalsProvider>
+            <SidebarProvider>
+              <AppSidebar />
+              <div className="flex w-full flex-col">
+                <SidebarInset>
+                  <AppHeader />
+                  {children}
+                </SidebarInset>
+              </div>
+            </SidebarProvider>
+          </GlobalsProvider>
+        </DndContext>
       </body>
     </html>
   );

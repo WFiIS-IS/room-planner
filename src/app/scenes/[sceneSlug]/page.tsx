@@ -9,6 +9,8 @@ import { PageWrapper } from '@/components/PageWrapper';
 import { Text } from '@/components/ui/text';
 import { getScene } from '@/data/scenes';
 
+import PlanGrid from './PlanGrid';
+
 export type ScenePageProps = {
   params: Promise<{ sceneSlug: string }>;
 };
@@ -28,12 +30,14 @@ export default async function ScenesPage({ params }: ScenePageProps) {
       </form>
       <div className="mx-auto my-auto flex flex-col items-center gap-4">
         <Text variant="h1">{scene.title}</Text>
-        <Image
-          src={`/image/${scene.fileMetadata.uid}.${scene.fileMetadata.ext}`}
-          alt="Scene"
-          width={1000}
-          height={600}
-        />
+        <PlanGrid>
+          <Image
+            src={`/image/${scene.fileMetadata.uid}.${scene.fileMetadata.ext}`}
+            alt="Scene"
+            width={1000}
+            height={600}
+          />
+        </PlanGrid>
       </div>
     </PageWrapper>
   );
