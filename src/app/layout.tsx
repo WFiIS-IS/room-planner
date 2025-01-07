@@ -43,11 +43,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Refresher />
+      {/* <Refresher /> */}
       <body className={cn(geistSans.variable, geistMono.variable, 'dark font-sans antialiased')}>
-        <DndContext>
-          <GlobalsProvider>
-            <SidebarProvider>
+        <GlobalsProvider>
+          <SidebarProvider>
+            <DndContext>
               <AppSidebar />
               <div className="flex w-full flex-col">
                 <SidebarInset>
@@ -55,9 +55,9 @@ export default function RootLayout({
                   {children}
                 </SidebarInset>
               </div>
-            </SidebarProvider>
-          </GlobalsProvider>
-        </DndContext>
+            </DndContext>
+          </SidebarProvider>
+        </GlobalsProvider>
       </body>
     </html>
   );
