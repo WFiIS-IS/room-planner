@@ -3,9 +3,14 @@
 import { type JSX } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 
-export default function Droppable({ id }: { id: string }) {
+export type DroppableProps = {
+  id: string;
+  children: JSX.Element;
+};
+
+export default function Droppable({ id, children }: DroppableProps) {
   const { setNodeRef } = useDroppable({
-    id,
+    id: id,
   });
 
   return (
@@ -20,6 +25,8 @@ export default function Droppable({ id }: { id: string }) {
         border: '1px dashed rgba(0, 0, 0, 0.5)',
         zIndex: -1,
       }}
-    />
+    >
+      {children}
+    </div>
   );
 }

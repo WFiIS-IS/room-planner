@@ -48,15 +48,15 @@ export default function RootLayout({
       <body className={cn(geistSans.variable, geistMono.variable, 'dark font-sans antialiased')}>
         <GlobalsProvider>
           <SidebarProvider>
-            <DnD>
-              <AppSidebar />
-              <div className="flex w-full flex-col">
-                <SidebarInset>
-                  <AppHeader />
-                  {children}
-                </SidebarInset>
-              </div>
-            </DnD>
+            {/* <DnD> */}
+            <AppSidebar />
+            <div className="flex w-full flex-col">
+              <SidebarInset>
+                <AppHeader />
+                {children}
+              </SidebarInset>
+            </div>
+            {/* </DnD> */}
           </SidebarProvider>
         </GlobalsProvider>
       </body>
