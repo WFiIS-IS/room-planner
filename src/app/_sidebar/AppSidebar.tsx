@@ -7,7 +7,7 @@ import { SidebarContent } from './SidebarContent';
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar {...props}>
+    <Sidebar className="max-w-[300px]" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <AppLogo />

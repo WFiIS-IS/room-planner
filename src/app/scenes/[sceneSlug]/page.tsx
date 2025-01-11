@@ -8,7 +8,10 @@ import { DestroyButton } from '@/components/DestroyButton';
 import { PageWrapper } from '@/components/PageWrapper';
 import { Text } from '@/components/ui/text';
 import { getScene } from '@/data/scenes';
+import { haApiClient } from '@/lib/home-assistant/client';
+import { filterLights } from '@/lib/home-assistant/state';
 
+import DraggableTrey from './DraggableTrey';
 import PlanGrid from './PlanGrid';
 
 export type ScenePageProps = {
@@ -18,6 +21,7 @@ export type ScenePageProps = {
 export default async function ScenesPage({ params }: ScenePageProps) {
   const { sceneSlug } = await params;
   const scene = await getScene(sceneSlug);
+  const states = await haApiClient.getStates();
 
   if (!scene) {
     notFound();
@@ -28,6 +32,7 @@ export default async function ScenesPage({ params }: ScenePageProps) {
       <form action={deleteSceneAction.bind(null, scene.slug)}>
         <DestroyButton type="submit" className="float-right" withText />
       </form>
+      <DraggableTrey lights={filterLights(states)} />
       <div className="mx-auto my-auto flex flex-col items-center gap-4">
         <Text variant="h1">{scene.title}</Text>
         <PlanGrid>
@@ -36,6 +41,7 @@ export default async function ScenesPage({ params }: ScenePageProps) {
             alt="Scene"
             width={1000}
             height={600}
+            // style={{ zIndex: -1 }}
           />
         </PlanGrid>
       </div>

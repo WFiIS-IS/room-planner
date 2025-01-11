@@ -6,7 +6,7 @@ export type PageWrapperProps = ComponentProps<'main'>;
 
 export function PageWrapper({ children, className, ...props }: PageWrapperProps) {
   return (
-    <main className={cn('flex flex-1 flex-col gap-4 p-4 pt-0', className)} {...props}>
+    <main className={cn('z-0 flex flex-1 flex-col gap-4 p-4 pt-0', className)} {...props}>
       {children}
     </main>
   );

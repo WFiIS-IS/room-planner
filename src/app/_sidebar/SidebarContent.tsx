@@ -7,7 +7,7 @@ import { DevicesGroup } from './DevicesGroup';
 
 export function SidebarContent() {
   return (
-    <SidebarContentComponent>
+    <SidebarContentComponent className="overflow-x-clip">
       <DevicesGroup />
       <SceneryGroup />
     </SidebarContentComponent>

@@ -18,6 +18,7 @@ export default function Droppable({ id }: { id: string }) {
         // alignItems: 'center',
         // justifyContent: 'center',
         border: '1px dashed rgba(0, 0, 0, 0.5)',
+        zIndex: -1,
       }}
     />
   );

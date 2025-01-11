@@ -17,6 +17,7 @@ import { Refresher } from '@/app/Refresher';
 import { cn } from '@/lib/utils';
 
 import { AppHeader } from './AppHeader';
+import { DnD } from './DnD';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -47,7 +48,7 @@ export default function RootLayout({
       <body className={cn(geistSans.variable, geistMono.variable, 'dark font-sans antialiased')}>
         <GlobalsProvider>
           <SidebarProvider>
-            <DndContext>
+            <DnD>
               <AppSidebar />
               <div className="flex w-full flex-col">
                 <SidebarInset>
@@ -55,7 +56,7 @@ export default function RootLayout({
                   {children}
                 </SidebarInset>
               </div>
-            </DndContext>
+            </DnD>
           </SidebarProvider>
         </GlobalsProvider>
       </body>
