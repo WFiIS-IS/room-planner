@@ -6,4 +6,5 @@ export function onDragStart(event: DragStartEvent) {
 
 export function onDragEnd(event: DragEndEvent) {
   console.log('onDragEnd', event);
+  console.log(event.delta);
 }

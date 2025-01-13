@@ -1,6 +1,7 @@
 'use client';
 
 import { useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import { Lightbulb, LightbulbOff } from 'lucide-react';
 
 // import { SidebarButtonLink } from '../SidebarButtonLink';
@@ -27,7 +28,9 @@ export default function DraggableLight({ item }: DraggableLightProps) {
   return (
     <Card
       style={{
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        // transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+
+        transform: CSS.Translate.toString(transform),
         zIndex: 1,
       }}
       key={item.entityId}

@@ -1,0 +1,243 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "ad27692e-08d7-424a-8cad-964180d517d4",
+  "prevId": "22cdea2e-bf1d-4048-b208-844c465e408c",
+  "tables": {
+    "element_positions": {
+      "name": "element_positions",
+      "columns": {
+        "element_uid": {
+          "name": "element_uid",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "x": {
+          "name": "x",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "y": {
+          "name": "y",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "file_metadata": {
+      "name": "file_metadata",
+      "columns": {
+        "uid": {
+          "name": "uid",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "content_type": {
+          "name": "content_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "file_size": {
+          "name": "file_size",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ext": {
+          "name": "ext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "original_filename": {
+          "name": "original_filename",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "image_metadata": {
+      "name": "image_metadata",
+      "columns": {
+        "file_metadata_uid": {
+          "name": "file_metadata_uid",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "width": {
+          "name": "width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "height": {
+          "name": "height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "image_metadata_file_metadata_uid_file_metadata_uid_fk": {
+          "name": "image_metadata_file_metadata_uid_file_metadata_uid_fk",
+          "tableFrom": "image_metadata",
+          "tableTo": "file_metadata",
+          "columnsFrom": [
+            "file_metadata_uid"
+          ],
+          "columnsTo": [
+            "uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "scene": {
+      "name": "scene",
+      "columns": {
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "file_metadata_uid": {
+          "name": "file_metadata_uid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "scene_file_metadata_uid_file_metadata_uid_fk": {
+          "name": "scene_file_metadata_uid_file_metadata_uid_fk",
+          "tableFrom": "scene",
+          "tableTo": "file_metadata",
+          "columnsFrom": [
+            "file_metadata_uid"
+          ],
+          "columnsTo": [
+            "uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "scenes_to_elements": {
+      "name": "scenes_to_elements",
+      "columns": {
+        "element_uid": {
+          "name": "element_uid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "scene_slug": {
+          "name": "scene_slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "scenes_to_elements_element_uid_element_positions_element_uid_fk": {
+          "name": "scenes_to_elements_element_uid_element_positions_element_uid_fk",
+          "tableFrom": "scenes_to_elements",
+          "tableTo": "element_positions",
+          "columnsFrom": [
+            "element_uid"
+          ],
+          "columnsTo": [
+            "element_uid"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "scenes_to_elements_scene_slug_scene_slug_fk": {
+          "name": "scenes_to_elements_scene_slug_scene_slug_fk",
+          "tableFrom": "scenes_to_elements",
+          "tableTo": "scene",
+          "columnsFrom": [
+            "scene_slug"
+          ],
+          "columnsTo": [
+            "slug"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "scenes_to_elements_element_uid_scene_slug_pk": {
+          "columns": [
+            "element_uid",
+            "scene_slug"
+          ],
+          "name": "scenes_to_elements_element_uid_scene_slug_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
