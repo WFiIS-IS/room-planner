@@ -6,7 +6,6 @@ import { db } from '@/lib/db/client';
 import { elementPositions, scene, scenesToElements } from '@/lib/db/schema';
 
 export default function checkElementPositionExists(sceneSlug: string, elementId: string) {
-  // if sceneSlug and elementID exists in db return true
   return db
     .select()
     .from(elementPositions)
