@@ -33,6 +33,12 @@ export async function getScene(slug: string) {
             ext: true,
           },
         },
+        imageMetadata: {
+          columns: {
+            width: true,
+            height: true,
+          },
+        },
       },
       columns: {
         slug: true,

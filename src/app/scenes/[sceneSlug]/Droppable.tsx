@@ -1,11 +1,11 @@
 'use client';
 
-import { type JSX } from 'react';
+import type { ReactNode } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 
 export type DroppableProps = {
   id: string;
-  children: JSX.Element;
+  children?: ReactNode;
 };
 
 export default function Droppable({ id, children }: DroppableProps) {
