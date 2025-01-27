@@ -7,9 +7,9 @@ export type LightsProps = {
   lights: LightDevice[];
 };
 
-export default function DraggableTrey({ lights }: LightsProps) {
+export function DraggableTrey({ lights }: LightsProps) {
   return (
-    <div className="background-white max-w-[150px] rounded-lg p-2 text-xs shadow-md">
+    <div className="background-white flex w-full flex-wrap gap-4 rounded-lg p-2 text-xs shadow-md">
       {lights.map((item) => (
         <DraggableLight key={item.entityId} item={item} />
       ))}

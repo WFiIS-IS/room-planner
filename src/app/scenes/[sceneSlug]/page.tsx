@@ -13,6 +13,8 @@ import { getScene } from '@/data/scenes';
 import { haApiClient } from '@/lib/home-assistant/client';
 import { filterLights } from '@/lib/home-assistant/state';
 
+import { DraggableTrey } from './DraggableTrey';
+
 export type ScenePageProps = {
   params: Promise<{ sceneSlug: string }>;
 };
@@ -34,7 +36,7 @@ export default async function ScenesPage({ params }: ScenePageProps) {
         <DestroyButton type="submit" className="float-right" withText />
       </form>
       <DnD>
-        {/*<DraggableTrey lights={filterLights(states)} />*/}
+        <DraggableTrey lights={filterLights(states)} />
         <div className="mx-auto my-auto flex flex-col items-center gap-4">
           <Text variant="h1">{scene.title}</Text>
           {/*<PlanGrid>*/}
