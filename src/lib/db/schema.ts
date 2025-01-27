@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { int, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { int, primaryKey, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { v4 as uuidv4 } from 'uuid';
 
 export const fileMetadata = sqliteTable('file_metadata', {
@@ -51,41 +51,26 @@ export const sceneRelations = relations(scene, ({ one, many }) => ({
     fields: [scene.fileMetadataUid],
     references: [imageMetadata.fileMetadataUid],
   }),
-  scenesToElements: many(scenesToElements),
+  scenesToElements: many(elementPositions),
 }));
 
-export const elementPositions = sqliteTable('element_positions', {
-  elementUid: text('element_uid').primaryKey(),
-  x: int().notNull(),
-  y: int().notNull(),
-});
-
-export const elementPositionsRelations = relations(elementPositions, ({ many }) => ({
-  scenesToElements: many(scenesToElements),
-}));
-
-export const scenesToElements = sqliteTable(
-  'scenes_to_elements',
+export const elementPositions = sqliteTable(
+  'element_positions',
   {
-    elementUid: text('element_uid')
-      .notNull()
-      .references(() => elementPositions.elementUid),
+    elementId: text('element_id').notNull(),
     sceneSlug: text('scene_slug')
       .notNull()
+      .notNull()
       .references(() => scene.slug),
+    x: real().notNull(),
+    y: real().notNull(),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.elementUid, t.sceneSlug] }),
-  }),
+  (table) => [primaryKey({ columns: [table.sceneSlug, table.elementId] })],
 );
 
-export const scenesToElementsRelations = relations(scenesToElements, ({ one }) => ({
-  elementPosition: one(elementPositions, {
-    fields: [scenesToElements.elementUid],
-    references: [elementPositions.elementUid],
-  }),
+export const elementPositionsRelations = relations(elementPositions, ({ one }) => ({
   scene: one(scene, {
-    fields: [scenesToElements.sceneSlug],
+    fields: [elementPositions.sceneSlug],
     references: [scene.slug],
   }),
 }));

@@ -1,36 +1,24 @@
 'use server';
 
-import { and, eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
 
-import { db } from '@/lib/db/client';
-import { elementPositions, scene, scenesToElements } from '@/lib/db/schema';
+import { deleteElementPosition, updateElementPosition } from '@/data/elementPositions';
 
-export default function checkElementPositionExists(sceneSlug: string, elementId: string) {
-  return db
-    .select()
-    .from(elementPositions)
-    .innerJoin(scenesToElements, eq(scenesToElements.elementUid, elementPositions.elementUid))
-    .innerJoin(scene, eq(scene.slug, scenesToElements.sceneSlug))
-    .where(and(eq(elementPositions.elementUid, elementId), eq(scene.slug, sceneSlug)));
-}
+type UpdateElementPositionParams = {
+  elementId: string;
+  sceneSlug: string;
+  position?: { x: number; y: number } | null;
+};
 
-export async function submitElementPosition(
-  sceneSlug: string,
-  elementId: string,
-  position: { x: number; y: number },
-) {
-  return await db.transaction(async (tx) => {
-    if (await checkElementPositionExists(sceneSlug, elementId)) {
-      return await tx.update(elementPositions).set({
-        x: position.x,
-        y: position.y,
-      });
-    } else {
-      return await tx.insert(elementPositions).values({
-        elementUid: elementId,
-        x: position.x,
-        y: position.y,
-      });
-    }
-  });
+export async function updateElementPositionAction({
+  elementId,
+  sceneSlug,
+  position,
+}: UpdateElementPositionParams) {
+  if (position) {
+    await updateElementPosition({ elementId, sceneSlug, position });
+  } else {
+    await deleteElementPosition({ sceneSlug, elementId });
+  }
+  revalidatePath(`/scenes/${sceneSlug}`);
 }

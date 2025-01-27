@@ -1,37 +1,59 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "ad27692e-08d7-424a-8cad-964180d517d4",
+  "id": "0ee51cb6-8b71-4b30-b1c0-482c3621843f",
   "prevId": "22cdea2e-bf1d-4048-b208-844c465e408c",
   "tables": {
     "element_positions": {
       "name": "element_positions",
       "columns": {
-        "element_uid": {
-          "name": "element_uid",
+        "element_id": {
+          "name": "element_id",
           "type": "text",
-          "primaryKey": true,
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "scene_slug": {
+          "name": "scene_slug",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "x": {
           "name": "x",
-          "type": "integer",
+          "type": "real",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "y": {
           "name": "y",
-          "type": "integer",
+          "type": "real",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         }
       },
       "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
+      "foreignKeys": {
+        "element_positions_scene_slug_scene_slug_fk": {
+          "name": "element_positions_scene_slug_scene_slug_fk",
+          "tableFrom": "element_positions",
+          "tableTo": "scene",
+          "columnsFrom": ["scene_slug"],
+          "columnsTo": ["slug"],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "element_positions_scene_slug_element_id_pk": {
+          "columns": ["scene_slug", "element_id"],
+          "name": "element_positions_scene_slug_element_id_pk"
+        }
+      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
@@ -111,12 +133,8 @@
           "name": "image_metadata_file_metadata_uid_file_metadata_uid_fk",
           "tableFrom": "image_metadata",
           "tableTo": "file_metadata",
-          "columnsFrom": [
-            "file_metadata_uid"
-          ],
-          "columnsTo": [
-            "uid"
-          ],
+          "columnsFrom": ["file_metadata_uid"],
+          "columnsTo": ["uid"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -156,76 +174,13 @@
           "name": "scene_file_metadata_uid_file_metadata_uid_fk",
           "tableFrom": "scene",
           "tableTo": "file_metadata",
-          "columnsFrom": [
-            "file_metadata_uid"
-          ],
-          "columnsTo": [
-            "uid"
-          ],
+          "columnsFrom": ["file_metadata_uid"],
+          "columnsTo": ["uid"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "scenes_to_elements": {
-      "name": "scenes_to_elements",
-      "columns": {
-        "element_uid": {
-          "name": "element_uid",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "scene_slug": {
-          "name": "scene_slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "scenes_to_elements_element_uid_element_positions_element_uid_fk": {
-          "name": "scenes_to_elements_element_uid_element_positions_element_uid_fk",
-          "tableFrom": "scenes_to_elements",
-          "tableTo": "element_positions",
-          "columnsFrom": [
-            "element_uid"
-          ],
-          "columnsTo": [
-            "element_uid"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "scenes_to_elements_scene_slug_scene_slug_fk": {
-          "name": "scenes_to_elements_scene_slug_scene_slug_fk",
-          "tableFrom": "scenes_to_elements",
-          "tableTo": "scene",
-          "columnsFrom": [
-            "scene_slug"
-          ],
-          "columnsTo": [
-            "slug"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "scenes_to_elements_element_uid_scene_slug_pk": {
-          "columns": [
-            "element_uid",
-            "scene_slug"
-          ],
-          "name": "scenes_to_elements_element_uid_scene_slug_pk"
-        }
-      },
       "uniqueConstraints": {},
       "checkConstraints": {}
     }
