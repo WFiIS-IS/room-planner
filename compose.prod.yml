@@ -2,7 +2,7 @@ name: room-planner
 
 services:
   room-planner:
-    image: room-planner:v0.2.0
+    image: room-planner:v0.3.0
     pull_policy: build
     build:
       context: .
