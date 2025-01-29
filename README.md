@@ -34,3 +34,30 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+---
+
+The application is hosted at [room-planer app](https://room-planner.critteros.dev/)!
+
+![](./docs/main_page.png)
+
+From main page you are able to access all your devices,
+for example lights
+![](./docs/all_devices.png)
+
+By pressing on desired element you are able to toggle it's function (turn on/turn off light).
+All elements are integrated with Home Assistant platform,
+so their state is taken from HA and all changes applied to them are also visible in HA interface.
+
+![](./docs/devices_view.png)
+
+From main page you can also access page with all scenes:
+![](./docs/scene_view.png)
+
+To define a new scene upload your own image and give the scene a name:
+![](./docs/create_scene.png)
+
+After scene creation, access the scence and place elements in desired room.
+You can also toogle function of each element from scene view by pressing on it's icon.
+
+![](./docs/move_elements.png)
